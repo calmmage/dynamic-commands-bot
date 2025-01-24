@@ -1,14 +1,12 @@
-from os import getenv
+from pathlib import Path
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
+from botspot.core.bot_manager import BotManager
 from calmlib.utils import setup_logger
 from dotenv import load_dotenv
 from loguru import logger
-from pathlib import Path
-
-from botspot.core.bot_manager import BotManager
 
 # Load environment variables
 load_dotenv(Path(__file__).parent.parent / ".env")
@@ -22,8 +20,8 @@ dp.include_router(main_router)
 dp.include_router(settings_router)
 
 
-def main() -> None:
-    setup_logger(logger)
+def main(debug=False) -> None:
+    setup_logger(logger, level="DEBUG" if debug else "INFO")
 
     # Initialize Bot instance with a default parse mode
     bot = Bot(
@@ -35,7 +33,7 @@ def main() -> None:
         bot=bot,
         error_handler={"enabled": True},
         ask_user={"enabled": True},
-        bot_commands_menu={"enabled": True}
+        bot_commands_menu={"enabled": True},
     )
 
     # Setup dispatcher with our components
