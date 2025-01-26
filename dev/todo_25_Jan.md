@@ -12,6 +12,9 @@ tech:
 - 2) a special, 'personalized-only' mode where a single user is supported and list of command is dynamically updated
 
 bugfixes
+- [ ] 1) strip stuff
+- [ ] 2) command description cannot be empty
+- [ ] 3) format command to lower_case
 
 basic features:
 - remove command
@@ -21,6 +24,10 @@ basic features:
 features:
 - schedule
 - gpt -> help create a command
+	- start working on my utils collection
+		- idea 1: "is this a good name for ..."
+		- idea 2: parse func inputs (+ unused data)
+		- idea 3: fill & ask for missing data
 - gpt -> help schedule a command
 
 
