@@ -3,14 +3,16 @@ from pathlib import Path
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from botspot.core.bot_manager import BotManager
 from calmlib.utils import setup_logger
 from dotenv import load_dotenv
 from loguru import logger
 
+from botspot.core.bot_manager import BotManager
+
 # Load environment variables
 load_dotenv(Path(__file__).parent.parent / ".env")
 
+# from router import app, router
 from .routers.settings import router as settings_router
 from .router import app, router as main_router
 
@@ -20,7 +22,7 @@ dp.include_router(main_router)
 dp.include_router(settings_router)
 
 
-def main(debug=False) -> None:
+def main(debug=False) -> Tuple[BotManager, Bot]:
     setup_logger(logger, level="DEBUG" if debug else "INFO")
 
     # Initialize Bot instance with a default parse mode
@@ -31,9 +33,9 @@ def main(debug=False) -> None:
     # Initialize BotManager with default components
     bm = BotManager(
         bot=bot,
-        error_handler={"enabled": True},
-        ask_user={"enabled": True},
-        bot_commands_menu={"enabled": True},
+        # error_handler={"enabled": True},
+        # ask_user={"enabled": True},
+        # bot_commands_menu={"enabled": True},
     )
 
     # Setup dispatcher with our components
@@ -41,6 +43,8 @@ def main(debug=False) -> None:
 
     # Start polling
     dp.run_polling(bot)
+
+    return bm, bot
 
 
 if __name__ == "__main__":
