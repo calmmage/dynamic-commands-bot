@@ -1,20 +1,22 @@
 from pathlib import Path
+from typing import Tuple
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
+from botspot.core.bot_manager import BotManager
 from calmlib.utils import setup_logger
 from dotenv import load_dotenv
 from loguru import logger
 
-from botspot.core.bot_manager import BotManager
-
 # Load environment variables
 load_dotenv(Path(__file__).parent.parent / ".env")
 
+from .router import app
+from .router import router as main_router
+
 # from router import app, router
 from .routers.settings import router as settings_router
-from .router import app, router as main_router
 
 # Initialize bot and dispatcher
 dp = Dispatcher()
